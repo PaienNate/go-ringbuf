@@ -213,7 +213,7 @@ func (rb *ringBuf[T]) Dequeue() (item T, err error) { //nolint:revive
 			item = rb.initializer.CloneOut(&holder.value)
 		} else {
 			item = holder.value
-			// holder.value = zero
+			holder.value = zero
 		}
 		if !atomic.CompareAndSwapUint64(&holder.readWrite, 3, 0) { //nolint:gomnd
 			err = ErrRaced // runtime.Gosched() // never happens
